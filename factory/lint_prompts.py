@@ -16,7 +16,7 @@ import frontmatter  # noqa: E402
 
 NAME = re.compile(r"^(\d{4}-\d{2}-\d{2})-(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$")
 STATUSES = {"draft", "ready", "applied", "superseded", "withdrawn"}
-TARGETS = {"factory-dev", "factory-review", "opencode-plan", "human"}
+TARGETS = {"factory-dev", "factory-review", "opencode-plan", "opencode-build", "human"}
 REQUIRED = ["id", "date", "version", "contract", "target", "tickets", "status", "supersedes"]
 FROZEN = {"ready", "applied", "superseded", "withdrawn"}
 STATUS_LINE = re.compile(r"^status:.*$", re.M)

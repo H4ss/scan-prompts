@@ -1,6 +1,8 @@
 # scanner-prompts
 
-Dépôt de pilotage de la dev-factory du scanner : prompts datés et versionnés pour GLM/opencode, templates, règles agent, scripts de gates. Aucun code du scanner ici.
+Prompts datés et versionnés pour un agent de code piloté par opencode, revues de propositions, templates, et une dev-factory optionnelle (règles agent, scripts de gates). Aucun code du scanner ici.
+
+Sujet en cours : classement des findings et sévérité CRITICAL — [revue](reviews/2026-11-25-critical-ranking-review.md), prompts `2026-11-25-01` (faits, prêt) et `2026-11-25-02` (implémentation, brouillon).
 
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)
@@ -10,6 +12,7 @@ Dépôt de pilotage de la dev-factory du scanner : prompts datés et versionnés
 
 ```
 prompts/YYYY-MM-DD-NN-<slug>.md   prompts (en anglais pour GLM), un fichier par prompt
+reviews/YYYY-MM-DD-<slug>.md       revues et décisions à prendre (en français)
 templates/                         ticket, rapport agent, checklist de revue, prompt
 AGENTS.md                          règles dures pour les agents (brouillon à copier)
 opencode/agents/                   prompts système factory-dev et factory-review
@@ -36,14 +39,16 @@ Tests : `python3 -m unittest discover -s tests`. Lint des prompts : `python3 fac
 - Nom : `prompts/<date>-<NN>-<slug>.md`, `NN` = ordre du jour ; `id` = `<date>-<NN>`, unique.
 - Un prompt commité en `ready`, `applied`, `superseded` ou `withdrawn` ne change plus que par sa ligne `status` (le lint compare à `HEAD`). Toute correction = nouveau fichier avec `supersedes: <id>`, l'ancien passe `superseded`.
 - `contract` = version du cadrage (AGENTS.md, templates, policy) supposée par le prompt.
-- `target` : `factory-dev`, `factory-review`, `opencode-plan` (agent `plan` intégré, lecture seule), `human`.
+- `target` : `opencode-plan` (agent `plan` intégré, lecture seule), `opencode-build` (agent `build` intégré, prompt collé tel quel), `factory-dev`, `factory-review`, `human`.
+- Chaque prompt est autonome : il peut être copié-collé seul dans opencode.
 
 ## Appliquer un prompt au travail
 
-1. `git pull` de ce dépôt sur la machine de travail.
+1. Ouvrir le prompt dans ce dépôt (ou `git pull` si la machine de travail y a accès) et le copier.
 2. Prendre le plus ancien prompt `ready` non appliqué (ou celui que le mainteneur désigne).
 3. Selon `target` :
    - `opencode-plan` : dans le dépôt du scanner, `opencode` avec l'agent `plan`, coller le prompt.
+   - `opencode-build` : même chose avec l'agent `build`, sur la branche nommée dans le prompt.
    - `factory-dev` : le prompt produit ou accompagne des tickets ; `fx.py start <ticket.md>` puis `opencode` dans le worktree (agent `factory-dev` par défaut).
    - `factory-review` : dans le worktree du ticket, agent `factory-review`.
 4. Passer le prompt en `applied` (commit `applied: <id>`).
@@ -51,8 +56,8 @@ Tests : `python3 -m unittest discover -s tests`. Lint des prompts : `python3 fac
 ## Retour des résultats
 
 - Le rapport de l'agent (format fixe) et le journal (`<journal>/<ID>/runs.jsonl` + logs) restent sur la machine de travail.
-- Le mainteneur rapporte à Claude ce qu'il choisit : rapport agent, lignes de journal, résumé, après avoir retiré noms, URLs internes, secrets et code non nécessaire.
-- Si le remote de ce dépôt est interne à l'entreprise, les rapports peuvent être commités sous `results/<prompt-id>/` ; sinon ils n'y vont pas.
+- Le mainteneur rapporte à Claude ce qu'il choisit (texte ou photo) : rapport agent, lignes de journal, résumé.
+- Ce dépôt est public : les réponses n'y sont pas commitées, et aucun prompt ne contient de nom d'entreprise, d'application, de personne, d'URL interne ni de code scanné.
 
 ## Mise en place côté scanner (après validation du design)
 

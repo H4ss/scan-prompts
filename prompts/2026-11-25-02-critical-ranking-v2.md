@@ -5,13 +5,15 @@ version: 1
 contract: "0.2"
 target: opencode-build
 tickets: []
-status: draft
+status: withdrawn
 supersedes: null
 ---
 
 # Critical ranking v2: the model states facts, code derives severity
 
-Draft. Not to be applied before the maintainer has settled decisions D1 to D5 (see `reviews/2026-11-25-critical-ranking-review.md`) and the facts of prompt `2026-11-25-01` are back. Names of modules and fields below are to be aligned with those facts.
+Withdrawn on 2026-11-25: replaced by the three task prompts `2026-11-25-03`, `-04` and `-05`, written after the facts came back (no code parser exists, one vote per finding in normal runs). Kept for history.
+
+Original note: not to be applied before the maintainer has settled decisions D1 to D5 (see `reviews/2026-11-25-critical-ranking-review.md`) and the facts of prompt `2026-11-25-01` are back. Names of modules and fields below are to be aligned with those facts.
 
 ## Goal
 On branch `feat/critical-ranking`, replace the model-decided promotion (STEP 2b as a contract the agent applies) with:

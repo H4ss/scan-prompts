@@ -111,3 +111,28 @@ Les deux échelles sont compatibles au sommet : le critical d'evilsocket/audit (
 - **Q5** — Quelle plateforme ingère les findings, et quel champ SARIF lit-elle pour la sévérité ?
 
 Le prompt `2026-11-25-01` fait répondre le dépôt à Q1, Q3, Q4 et au reste des faits manquants.
+
+## Addendum — faits reçus (prompt `2026-11-25-01`) et plan retenu
+
+Ce que les faits changent :
+
+1. **Aucun code ne lit le bloc de la Phase 4.** C'est l'agent orchestrateur du skill qui le recopie dans `TRIAGE.json` ; le schéma accepte n'importe quelle chaîne pour `severity`. Aujourd'hui un CRITICAL sans ligne facteurs passe sans contrôle. La fonction de calcul se place donc **après** la validation de `TRIAGE.json`, dans le pipeline, et la sortie brute de l'agent est conservée dans `TRIAGE.model.json`.
+2. **Un seul vote par finding en run normal** (le skill prévoit 3, le harness en passe 1), et un seul agent classe chaque finding. Un CRITICAL reposerait sur une seule réponse. La condition « votes unanimes sur au moins 2 votes » devient « aucun vote contraire », et la contre-vérification adverse devient obligatoire, pas optionnelle : c'est elle le second regard. Elle peut tourner sur un autre modèle (`stages.challenge.model`).
+3. **Le threat model transmis au classement est vide** dans les runs, alors que `THREAT_MODEL.md` existe avec une table d'actifs (colonne sensibilité) et une table de menaces (colonne impact). Le STEP 3 est donc sauté et la règle T3 ne se déclenche jamais. À décider séparément (D6) : le brancher fera monter des MEDIUM en HIGH, il faut mesurer avant.
+4. **Le triage rétrograde massivement les HIGH claimés.** C'est la conséquence attendue de la table (constat C4) sur une application surtout authentifiée. La règle F1 est celle qui aura le plus d'effet sur un scanner « focus high / critical » ; son effet se mesure avec `--stats` sur un run existant, sans relancer de scan.
+5. **Le scanner n'enregistre ni point d'entrée ni état d'authentification.** Le classement est le premier endroit où `reach` est établi. Faire émettre ces deux faits par le scan est une piste pour la suite (ordre de triage, comparaison avec lynceus).
+6. SARIF : `properties.security-severity` et `partialFingerprints` existent déjà. L'empreinte dépend du numéro de ligne, donc elle change quand le code bouge : acceptable pour comparer deux rapports du même commit, à revoir pour le suivi dans le temps.
+
+Décisions intégrées dans les prompts : D1 (CRITICAL réservé au non authentifié), D2 (plancher HIGH, règle F1), D3 (contre-vérification), D4 adaptée (aucun vote contraire), D5 en option (inactive tant qu'aucun actif n'est nommé).
+
+Plan, un prompt par tâche, à coller dans l'ordre et un à la fois :
+
+| Prompt | Contenu | Effet sur les runs |
+|---|---|---|
+| `2026-11-25-03` | `anduril/ranking.py` : `normalise`, `derive_severity`, `--stats`, tests | aucun (rien ne l'appelle) |
+| `2026-11-25-04` | STEP 2b factuel, nouveaux champs, calcul après validation, « Why this severity » | sévérités calculées ; candidats CRITICAL marqués, aucun CRITICAL |
+| `2026-11-25-05` | skill de contre-vérification, étape pipeline, `docs/ranking.md` | CRITICAL possibles |
+
+Après `-04` : relancer le triage d'un run existant et comparer `--stats` avant et après. Après `-05` : même chose, puis lire à la main chaque CRITICAL et chaque candidat réfuté.
+
+Restent à écrire ensuite : le jeu de calibration (12 cas synthétiques), le protocole de comparaison avec lynceus, et D6.

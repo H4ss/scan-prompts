@@ -136,3 +136,11 @@ Plan, un prompt par tâche, à coller dans l'ordre et un à la fois :
 Après `-04` : relancer le triage d'un run existant et comparer `--stats` avant et après. Après `-05` : même chose, puis lire à la main chaque CRITICAL et chaque candidat réfuté.
 
 Restent à écrire ensuite : le jeu de calibration (12 cas synthétiques), le protocole de comparaison avec lynceus, et D6.
+
+## Mise à jour — un seul prompt de bout en bout
+
+Les prompts `-03`, `-04`, `-05` sont regroupés dans `2026-11-25-06`, qui ajoute :
+- **D6 tranchée par la mesure** : un réglage `stages.triage.threat_model` (`off` par défaut, `on` pour transmettre `THREAT_MODEL.md` au classement) et deux variantes de triage sur les mêmes findings de scan, comparées dans un tableau.
+- **Modèles** : scan et triage sur un modèle, contre-vérification sur l'autre quand deux sont configurés.
+- **`only_blocked_by_reach`** : le nombre de HIGH qui seraient candidats CRITICAL si D1 autorisait les comptes ordinaires. C'est la donnée qui permettra de revoir D1 sans changer la règle à l'aveugle.
+- Une règle explicite : zéro CRITICAL est un résultat valide, aucun réglage n'est modifié pour en obtenir.

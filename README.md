@@ -2,7 +2,7 @@
 
 Prompts datés et versionnés pour un agent de code piloté par opencode, revues de propositions, templates, et une dev-factory optionnelle (règles agent, scripts de gates). Aucun code du scanner ici.
 
-Sujet en cours : classement des findings et sévérité CRITICAL — [revue](reviews/2026-11-25-critical-ranking-review.md), prompts d'implémentation `2026-11-25-03`, `-04`, `-05`, à coller dans l'ordre, un à la fois.
+Sujet en cours : classement des findings et sévérité CRITICAL — [revue](reviews/2026-11-25-critical-ranking-review.md), prompt à coller : `2026-11-25-06` (implémentation de bout en bout puis mesure avec et sans threat model). Les prompts `-03` à `-05` y sont intégrés.
 
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)

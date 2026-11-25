@@ -1,0 +1,11 @@
+{
+  "_note": "Copy to factory/local.json (gitignored). Paths are absolute on the work machine.",
+  "repo": "/home/USER/work/scanner",
+  "base": "main",
+  "wt_root": null,
+  "journal": null,
+  "max_agents": 2,
+  "model": "glm/glm",
+  "gates": "gates.json",
+  "sandbox": ["bwrap", "--unshare-net", "--die-with-parent", "--ro-bind", "/", "/", "--dev", "/dev", "--proc", "/proc", "--tmpfs", "/tmp", "--bind", "{worktree}", "{worktree}", "--chdir", "{worktree}", "--"]
+}

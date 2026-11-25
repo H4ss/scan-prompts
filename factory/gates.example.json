@@ -1,0 +1,12 @@
+{
+  "_note": "Placeholder commands, to replace once the scanner's stack is known. argv lists only, no shell. Every command runs inside the sandbox of local.json. 'stage': 'merge' = only in fx.py merge. 'when': '<field>' = only if the ticket sets that field to true. {test} is substituted in 'red' and 'test'. Lint, tests and replay must exclude regression/cases (ruff extend-exclude, pytest norecursedirs) and write outputs to a temp dir.",
+  "red": {"cmd": ["python3", "-m", "pytest", "-x", "-q", "-p", "no:cacheprovider", "{test}"], "fail_codes": [1], "timeout": 300},
+  "test": {"cmd": ["python3", "-m", "pytest", "-q", "-p", "no:cacheprovider", "{test}"], "timeout": 300},
+  "gates": [
+    {"name": "lint", "cmd": ["ruff", "check", "."], "timeout": 300},
+    {"name": "types", "cmd": ["mypy", "src"], "timeout": 600},
+    {"name": "unit", "cmd": ["python3", "-m", "pytest", "-q", "-p", "no:cacheprovider", "tests"], "timeout": 900},
+    {"name": "regression-replay", "cmd": ["python3", "-m", "pytest", "-q", "-p", "no:cacheprovider", "regression/test_replay.py"], "timeout": 900},
+    {"name": "regression-model", "stage": "merge", "when": "model_eval", "sandbox": false, "cmd": ["python3", "regression/run_model_eval.py", "--runs", "3", "--compare", "regression/baseline/metrics.json"], "timeout": 7200}
+  ]
+}

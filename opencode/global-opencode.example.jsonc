@@ -1,0 +1,32 @@
+// Draft for ~/.config/opencode/opencode.jsonc on the work machine (opencode V2 syntax).
+// Hard denies that no project config can lift. The `policies` shape below follows the
+// docs example read on 2026-11-23 ("action": "tool.use", "resource": "<tool>:<pattern>");
+// check https://opencode.ai/docs/policies/ against the installed version before use.
+// The provider block is a placeholder: endpoint, model id and key source come from the maintainer.
+// "share" and "autoupdate" are V1 keys known to disable session sharing and self-update;
+// confirm their V2 names in the installed version's docs. Session transcripts contain company code.
+{
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "autoupdate": false,
+  "policies": [
+    { "action": "tool.use", "resource": "webfetch:*", "effect": "deny" },
+    { "action": "tool.use", "resource": "websearch:*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git push*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:curl *", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:wget *", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:ssh *", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:pip install*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:sudo *", "effect": "deny" }
+  ],
+  "providers": {
+    "glm": {
+      "name": "GLM",
+      "env": ["GLM_API_KEY"],
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": { "baseURL": "<GLM endpoint>/v1", "apiKey": "{env:GLM_API_KEY}" },
+      "models": { "glm": { "modelID": "<model id>", "name": "GLM" } }
+    }
+  },
+  "model": "glm/glm"
+}

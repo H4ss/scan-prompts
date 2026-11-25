@@ -1,0 +1,85 @@
+{
+  "_note": "Generic values, tracked. Company-specific globs go in policy.local.json (gitignored); its keys replace these. Globs are fnmatch-style: '*' also crosses '/', as in opencode permissions.",
+  "contract": "0.2",
+  "defaults": {
+    "max_diff_lines": 400,
+    "attempts_max": 3,
+    "agent_steps": 60
+  },
+  "ticket_types": ["feature", "fix", "fp-fix", "fn-fix", "refactor", "test", "corpus", "chore"],
+  "protected": [
+    "AGENTS.md",
+    "*/AGENTS.md",
+    "CLAUDE.md",
+    "opencode.json",
+    "opencode.jsonc",
+    ".opencode/*",
+    ".factory/*",
+    ".github/*",
+    ".gitlab-ci.yml",
+    "Jenkinsfile"
+  ],
+  "unlockable": [
+    "regression/golden/*",
+    "regression/baseline/*",
+    "regression/replay/*",
+    "conftest.py",
+    "*/conftest.py",
+    "pytest.ini",
+    "tox.ini",
+    "setup.cfg",
+    "pyproject.toml",
+    "ruff.toml",
+    ".ruff.toml",
+    "mypy.ini",
+    ".coveragerc",
+    ".pre-commit-config.yaml",
+    ".gitignore",
+    "*/.gitignore"
+  ],
+  "append_only": [
+    "regression/cases/*"
+  ],
+  "case_requirements": {
+    "fp-fix": "regression/cases/*/clean/*",
+    "fn-fix": "regression/cases/*/vulnerable/*"
+  },
+  "model_paths": [],
+  "tests": {
+    "globs": ["tests/*", "*/tests/*", "test_*.py", "*/test_*.py", "*_test.py"],
+    "weakening_patterns": [
+      "\\bskip\\b", "skipif", "skipTest", "SkipTest", "importorskip",
+      "xfail", "expectedFailure",
+      "collect_ignore", "pytest_collection_modifyitems", "pytest_ignore_collect", "deselect"
+    ]
+  },
+  "dependency_manifests": [
+    "pyproject.toml", "*/pyproject.toml",
+    "requirements*.txt", "*/requirements*.txt",
+    "setup.py", "setup.cfg",
+    "poetry.lock", "uv.lock", "Pipfile", "Pipfile.lock",
+    "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock",
+    "go.mod", "go.sum", "Cargo.toml", "Cargo.lock"
+  ],
+  "hot_files": [],
+  "commit_subject": "^{id}: \\S",
+  "opencode": {
+    "shell_allow": [
+      "git status *",
+      "git diff *",
+      "git log *",
+      "git show *",
+      "git add *",
+      "git commit -m *",
+      "ls *",
+      "python3 {fx} scope",
+      "python3 {fx} gates",
+      "python3 {fx} gates --red *",
+      "python3 {fx} test *"
+    ],
+    "shell_deny_after_allow": [
+      "*&*", "*;*", "*|*", "*>*", "*<*", "*$(*", "*`*", "*\n*",
+      "*--output*", "*--no-index*", "*--amend*", "*--no-verify*", "* -n*", "* -c *"
+    ]
+  }
+}

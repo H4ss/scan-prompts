@@ -4,6 +4,8 @@ Prompts datés et versionnés pour un agent de code piloté par opencode, revues
 
 Sujet en cours : classement des findings et sévérité CRITICAL — [revue](reviews/2026-11-25-critical-ranking-review.md), prompt à coller : `2026-11-25-06` (implémentation de bout en bout puis mesure avec et sans threat model). Les prompts `-03` à `-05` y sont intégrés.
 
+En parallèle : `2026-11-25-07`, rapport comparatif HTML de tous les scans anduril (une ligne par scan, données dans `scans.jsonl`, branche et worktree séparés).
+
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)
 - Historique du contrat de cadrage : [CHANGELOG.md](CHANGELOG.md)

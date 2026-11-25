@@ -6,7 +6,7 @@ Sujet en cours : classement des findings et sévérité CRITICAL — [revue](rev
 
 En parallèle : `2026-11-25-07`, rapport comparatif HTML de tous les scans anduril (une ligne par scan, données dans `scans.jsonl`, branche et worktree séparés).
 
-Étape scan : `2026-11-25-08` (aucune session ne garde tous les findings, couverture des zones, briefs détaillés et gapfill plafonné derrière des réglages, puis quatre scans mesurés).
+Nuit de mesure : `2026-11-25-09` (remplace `-08` : correctifs de l'étape scan derrière des réglages, file de huit scans au plus, comparaison avec lynceus, rapport central).
 
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)

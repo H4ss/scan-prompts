@@ -8,7 +8,9 @@ En parallèle : `2026-11-25-07`, rapport comparatif HTML de tous les scans andur
 
 Nuit de mesure : `2026-11-25-09` (remplace `-08` : correctifs de l'étape scan derrière des réglages, file de huit scans au plus, comparaison avec lynceus, rapport central).
 
-Suites de la nuit : `2026-11-26-07` (triage sans agent coordinateur : boucle en Python, une session par finding, rejeu sur des scans déjà faits dont la durée connue sert de référence ; remplace `-05`) et `2026-11-26-06` (relevé de faits, sans code, pour un futur script de contrôle des scans dans l'orchestrateur et le réveil d'opencode sur événement ; remplace `-03`).
+Priorités du 2026-11-26, dans l'ordre : `2026-11-26-08` (unités de scan : reprises qui ne refont pas le travail, minuteries qui regardent le bon signal, budget de requêtes vers la passerelle), puis `2026-11-26-07` (triage sans agent coordinateur : boucle en Python, une session par finding, rejeu sur des scans déjà faits ; remplace `-05`).
+
+À part : `2026-11-26-06` (relevé de faits, sans code, pour un futur script de contrôle des scans dans l'orchestrateur et le réveil d'opencode sur événement ; remplace `-03`).
 
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)

@@ -8,6 +8,8 @@ En parallèle : `2026-11-25-07`, rapport comparatif HTML de tous les scans andur
 
 Nuit de mesure : `2026-11-25-09` (remplace `-08` : correctifs de l'étape scan derrière des réglages, file de huit scans au plus, comparaison avec lynceus, rapport central).
 
+Suites de la nuit : `2026-11-26-03` (file de scans sans surveillance : superviseur sans modèle, session opencode réveillée sur événement) et `2026-11-26-04` (triage : mesure du temps mort, puis lots en parallèle si la mesure le justifie).
+
 - Design : [DEV-FACTORY.md](DEV-FACTORY.md)
 - Règles agent (à copier dans le dépôt du scanner) : [AGENTS.md](AGENTS.md)
 - Historique du contrat de cadrage : [CHANGELOG.md](CHANGELOG.md)

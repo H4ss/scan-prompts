@@ -5,7 +5,7 @@ version: 2
 contract: "0.2"
 target: opencode-build
 tickets: []
-status: ready
+status: applied
 supersedes: null
 ---
 

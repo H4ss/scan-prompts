@@ -12,7 +12,7 @@ Nuit du 26 : `2026-11-26-10`, appliqué (reprises des unités de scan vérifiée
 
 À coller : `2026-11-27-01` (remplace `-07`). Triage en une seule session avec 16 sous-agents : surveillance sur tout l'arbre de sessions, un fichier par verdict, limite d'étapes non fatale, durée par phase dans les métriques. Une seule mesure : rejeu du triage du scan de la nuit, comparé aux trois triages existants.
 
-À coller aussi : `2026-11-27-02`, classement v3 : l'arbre de sévérité de lynceus calculé en Python à partir des faits d'anduril, les preuves dans un champ confiance séparé, jugé paire par paire contre lynceus (un finding anduril peut couvrir plusieurs findings lynceus), réglé sur une cible et vérifié sur l'autre, sans nouveau scan.
+Classement : `2026-11-27-02`, appliqué (v3 : l'arbre de sévérité de lynceus calculé en Python, preuves dans un champ confiance, jugé paire par paire). À coller : `2026-11-27-04`, mesures en lecture seule pour écrire le plan suivant (couverture par niveau, accord facteur par facteur, ce qui fait baisser chaque paire, préconditions par type, simulations de variantes, stabilité) ; rien n'est construit.
 
 Brouillon, à valider par le mainteneur avant collage : `2026-11-27-03`, écarts entre deux scans du même code (zone absente, fichier non lu, lu sans rien signaler, perdu au triage), ce que le gap-fill apporte, puis deux passes de l'étape scan seule ; proposition sans construction.
 

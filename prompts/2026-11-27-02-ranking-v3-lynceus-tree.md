@@ -1,7 +1,7 @@
 ---
 id: 2026-11-27-02
 date: 2026-11-27
-version: 1
+version: 2
 contract: "0.2"
 target: opencode-build
 tickets: []
@@ -74,12 +74,12 @@ On the pairs of each target, with our v2 severity against the highest lynceus se
 Setting `stages.triage.ranking: v2 | v3`, default `v2`. v2 keeps its code path and its outputs.
 
 - **The tree of P1a, on the mapping of P1b**, as a pure function. Same inputs as v2: no new fact is asked from the agent in this prompt.
-- **A fact counts only with its evidence.** A reach without authentication evidence, an `unknown`, a value with `no equivalent`: each counts as the next lower value of its factor, never as the value claimed, and the trace says so. This is lynceus' rule "between two levels, take the lower", made checkable.
+- **The severity is the one lynceus' tree gives, nothing more.** The aim is that a finding lynceus rates critical is not rated lower by anduril because a proof is missing. Only an `unknown` or a value with `no equivalent` counts as the next lower value of its factor, and the trace says so: this is lynceus' own rule "between two levels, take the lower".
 - **Chaining is the fourth factor.** A `[chain]` precondition leaves the count of preconditions and gives `chaining=chain-link`, with the effect the tree gives it.
-- **CRITICAL**: the top of the tree (remote without credentials, impact of the first tier, no counted precondition, standalone) and the three conditions that are proofs: authentication evidence present, production code path, verifier verdict `exploitable`. They replace for a static scanner what the proof-of-concept step does for lynceus. The challenge of every candidate stays.
-- **Votes become confidence.** New field `confidence: high | medium | low`, from the votes, the challenge and the completeness of the evidence. It never changes the severity; it orders findings inside a level. If P3 shows that another condition of C1 mostly blocks findings that lynceus rates critical, report it with its count; the maintainer decides, nothing more is removed here.
+- **CRITICAL**: the top of the tree and only it (remote without credentials, impact of the first tier, no counted precondition, standalone). The challenge of every candidate stays, with the effect lynceus gives to a failed proof of concept: a challenge that refutes a factor lowers the finding by one level; a missing proof lowers nothing.
+- **Proofs become confidence.** New field `confidence: high | medium | low`, from the conditions that v2 used as blockers and that are proofs, not factors: authentication evidence present, production code path, verifier verdict `exploitable`, no dissenting vote, challenge survived. `high` when all hold, `low` when the authentication evidence or the verdict is missing, `medium` otherwise; `confidence_missing` lists what does not hold. Confidence never changes the severity; it orders findings inside a level, and the report shows a CRITICAL of low confidence as "to verify".
 - **Outputs**: `severity`, `severity_rationale` in one line (`reach=...; privileges=...; impact=...; chaining=...`), `severity_trace`, `critical_blockers`, `confidence`.
-- **Tests**: one case on each side of every limit of the tree; missing evidence lowers the factor; a chain is no longer counted as a precondition; property test over every combination of facts: CRITICAL only with the seven conditions and a survived challenge; with `ranking: v2` the stored triage files give exactly the statistics they gave before.
+- **Tests**: one case on each side of every limit of the tree; missing evidence lowers the factor; a chain is no longer counted as a precondition; property test over every combination of facts: CRITICAL only with the four conditions of the top of the tree and no refuted challenge; confidence never changes a severity; with `ranking: v2` the stored triage files give exactly the statistics they gave before.
 
 ### P5. v3 on stored findings
 Recompute v3 on the triage files of `RUNS A` and `RUNS B`, from the facts as stored. A finding whose stored facts do not give a factor is `not computable` and counted; nothing is guessed.
@@ -88,7 +88,7 @@ Numbers, per target, v2 next to v3:
 1. pairs with the same level; pairs within one level;
 2. **under-rated**: pairs that lynceus rates critical or high and we rate medium or lower. This is the number v3 has to bring down;
 3. **over-rated**: pairs we rate high or critical and lynceus medium or lower, and our high or critical findings with no pair. Listed by id, to be read by hand;
-4. CRITICAL candidates, each with its rationale line;
+4. CRITICAL findings, each with its rationale line, its confidence and what is missing;
 5. `not computable`, by missing factor.
 
 Rules of tuning:
@@ -108,6 +108,7 @@ From P1f and P5, one page in `docs/ranking-v3-facts.md`:
 - No change to the scan skill, the triage skill or the ranking prompt.
 - Default stays `v2` until the maintainer has read the under-rated and over-rated lists.
 - Zero CRITICAL is a valid result. No value is changed to obtain one.
+- The number to watch first: pairs that lynceus rates critical and v3 rates lower. Each one is listed with the factor that lowered it.
 - One commit per part, subject `ranking-v3 <part>: <what>`.
 - Results, pairs and lists stay on this machine.
 

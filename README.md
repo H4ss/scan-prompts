@@ -8,9 +8,9 @@ En parallèle : `2026-11-25-07`, rapport comparatif HTML de tous les scans andur
 
 Nuit de mesure : `2026-11-25-09` (remplace `-08` : correctifs de l'étape scan derrière des réglages, file de huit scans au plus, comparaison avec lynceus, rapport central).
 
-À coller : `2026-11-26-10` (remplace `-09`, suite du `-08` appliqué). Trois phases : corrections des reprises, faits sur la passerelle et triage par lots en parallèle derrière un réglage ; deux tests courts (plafond de sous-agents par unité, répétition de la chaîne de nuit) ; puis, après validation de la configuration, une nuit de scans complets et de rejeux du triage.
+Nuit du 26 : `2026-11-26-10`, appliqué (reprises des unités de scan vérifiées sur un scan complet ; triage par lots, en série ou en parallèle, écarté au profit de la session unique).
 
-En attente : `2026-11-26-07` (triage sans agent coordinateur, boucle en Python), à décider d'après les mesures de la nuit.
+À coller : `2026-11-27-01` (remplace `-07`). Triage en une seule session avec 16 sous-agents : surveillance sur tout l'arbre de sessions, un fichier par verdict, limite d'étapes non fatale, durée par phase dans les métriques. Une seule mesure : rejeu du triage du scan de la nuit, comparé aux trois triages existants.
 
 À part : `2026-11-26-06` (relevé de faits, sans code, pour un futur script de contrôle des scans dans l'orchestrateur et le réveil d'opencode sur événement ; remplace `-03`).
 

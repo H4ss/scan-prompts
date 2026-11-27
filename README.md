@@ -12,9 +12,9 @@ Nuit du 26 : `2026-11-26-10`, appliqué (reprises des unités de scan vérifiée
 
 À coller : `2026-11-27-01` (remplace `-07`). Triage en une seule session avec 16 sous-agents : surveillance sur tout l'arbre de sessions, un fichier par verdict, limite d'étapes non fatale, durée par phase dans les métriques. Une seule mesure : rejeu du triage du scan de la nuit, comparé aux trois triages existants.
 
-Brouillons, à valider par le mainteneur avant collage :
-- `2026-11-27-02` : classement v3, l'arbre de sévérité de lynceus calculé en Python à partir des faits d'anduril, jugé paire par paire contre lynceus (un finding anduril peut couvrir plusieurs findings lynceus), réglé sur une cible et vérifié sur l'autre, sans nouveau scan.
-- `2026-11-27-03` : écarts entre deux scans du même code (zone absente, fichier non lu, lu sans rien signaler, perdu au triage), ce que le gap-fill apporte, puis deux passes de l'étape scan seule ; proposition sans construction.
+À coller aussi : `2026-11-27-02`, classement v3 : l'arbre de sévérité de lynceus calculé en Python à partir des faits d'anduril, les preuves dans un champ confiance séparé, jugé paire par paire contre lynceus (un finding anduril peut couvrir plusieurs findings lynceus), réglé sur une cible et vérifié sur l'autre, sans nouveau scan.
+
+Brouillon, à valider par le mainteneur avant collage : `2026-11-27-03`, écarts entre deux scans du même code (zone absente, fichier non lu, lu sans rien signaler, perdu au triage), ce que le gap-fill apporte, puis deux passes de l'étape scan seule ; proposition sans construction.
 
 À part : `2026-11-26-06` (relevé de faits, sans code, pour un futur script de contrôle des scans dans l'orchestrateur et le réveil d'opencode sur événement ; remplace `-03`).
 
